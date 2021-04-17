@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Products.Api.Contracts\Products.Api.Contracts.csproj" />
+    <ProjectReference Include="..\Products.Api.Data\Products.Api.Data.csproj" />
+    <ProjectReference Include="..\Products.Api.Entities\Products.Api.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
