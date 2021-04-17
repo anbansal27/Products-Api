@@ -9,5 +9,7 @@ namespace Products.Api.IntegrationTests.Theories.Data
         public ProductDto Product { get; set; }
 
         public HttpStatusCode ExpectedStatusCode { get; set; }        
+
+        public CreateProductResponse ExpectedResponse { get; set; }
     }
 }

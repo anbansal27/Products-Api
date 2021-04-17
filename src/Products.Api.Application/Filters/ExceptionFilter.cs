@@ -23,6 +23,11 @@ namespace Products.Api.Application.Filters
                     context.Result = new ConflictObjectResult(ex.Message);
                     await Task.CompletedTask;
                     break;
+                case ProductNotFoundException ex:
+                    LogException(ex);
+                    context.Result = new NotFoundObjectResult(ex.Message);
+                    await Task.CompletedTask;
+                    break;
                 default:
                     LogException(context.Exception);
                     context.Result = new ObjectResult("An unexpected error was encountered")

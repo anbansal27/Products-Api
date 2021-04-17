@@ -12,6 +12,8 @@ using Products.Api.Application.Validators;
 using Products.Api.Data.Extensions;
 using Products.Api.Data.Repository;
 using Products.Api.Application.Filters;
+using System;
+using System.Reflection;
 
 namespace Products.Api
 {
@@ -39,6 +41,9 @@ namespace Products.Api
                     .Configure<AppSettings>(Configuration);
 
             services.AddDbContext();
+
+            Assembly lookupAssembly = AppDomain.CurrentDomain.Load("Products.Api.Application");
+            services.AddAutoMapper(lookupAssembly);
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
