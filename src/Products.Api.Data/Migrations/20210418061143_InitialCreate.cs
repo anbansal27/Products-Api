@@ -44,9 +44,10 @@ namespace Products.Api.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductOptions_ProductId",
+                name: "IX_ProductOptions_ProductId_Name",
                 table: "ProductOptions",
-                column: "ProductId");
+                columns: new[] { "ProductId", "Name" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Code",

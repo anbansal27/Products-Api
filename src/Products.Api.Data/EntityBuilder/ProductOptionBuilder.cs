@@ -12,6 +12,8 @@ namespace Products.Api.Data.EntityBuilder
             builder.Property(po => po.Description).HasMaxLength(500);
 
             builder.Property(po => po.Name).HasColumnType("TEXT COLLATE NOCASE").HasMaxLength(255).IsRequired();
+
+            builder.HasIndex(po => new { po.ProductId, po.Name}).IsUnique();
         }
     }
 }

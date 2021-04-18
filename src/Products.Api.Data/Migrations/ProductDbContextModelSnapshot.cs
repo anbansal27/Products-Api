@@ -72,7 +72,8 @@ namespace Products.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId", "Name")
+                        .IsUnique();
 
                     b.ToTable("ProductOptions");
                 });

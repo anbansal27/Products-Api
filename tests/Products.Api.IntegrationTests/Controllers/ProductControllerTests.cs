@@ -3,6 +3,7 @@ using Products.Api.Application.Response;
 using Products.Api.IntegrationTests.Common;
 using Products.Api.IntegrationTests.Theories;
 using Products.Api.IntegrationTests.Theories.Data;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 using static Products.Api.IntegrationTests.Common.Utilities;
@@ -17,23 +18,24 @@ namespace Products.Api.IntegrationTests.Controllers
 
         [Theory]
         [ClassData(typeof(CreateProductTheories))]
-        public async Task When_Creating_Product(string description, CreateProductTheoryData theoryData)
+        public async Task When_Creating_A_Product(string description, CreateProductTheoryData theoryData)
         {
             // Arrange
             var client = _factory.CreateClient();
-            CreateProductResponse actualResponse = null;
 
             // Act
             var requestContent = GetRequestContent(theoryData.Product);
             var responseMessage = await client.PostAsync("/api/products", requestContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                actualResponse = await GetResponseContent<CreateProductResponse>(responseMessage);
-            }
 
             // Assert
             Assert.Equal(theoryData.ExpectedStatusCode, responseMessage?.StatusCode);
-            actualResponse.Should().BeEquivalentTo(theoryData.ExpectedResponse); 
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                CreateProductResponse actualResponse = await GetResponseContent<CreateProductResponse>(responseMessage);
+                actualResponse.ProductId.Should().NotBe(Guid.Empty);
+                actualResponse.ProductId.Should().NotBe(default);
+            }
         }
     }
 }

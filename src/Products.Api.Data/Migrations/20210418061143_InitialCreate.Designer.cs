@@ -9,7 +9,7 @@ using Products.Api.Data;
 namespace Products.Api.Data.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20210417024605_InitialCreate")]
+    [Migration("20210418061143_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,8 @@ namespace Products.Api.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId", "Name")
+                        .IsUnique();
 
                     b.ToTable("ProductOptions");
                 });

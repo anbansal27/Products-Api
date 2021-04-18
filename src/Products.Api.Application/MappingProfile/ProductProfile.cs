@@ -9,6 +9,8 @@ namespace Products.Api.Application.MappingProfile
         public ProductProfile()
         {
             CreateMap<Product, ProductDto>();
+
+            CreateMap<ProductDto, Product>();
         }
     }
 }

@@ -16,32 +16,26 @@ namespace Products.Api.Application.Filters
 
         public async Task OnExceptionAsync(ExceptionContext context)
         {
-            switch (context.Exception)
+            context.Result = context.Exception switch
             {
-                case DuplicateProductException ex:
-                    LogException(ex);
-                    context.Result = new ConflictObjectResult(ex.Message);
-                    await Task.CompletedTask;
-                    break;
-                case ProductNotFoundException ex:
-                    LogException(ex);
-                    context.Result = new NotFoundObjectResult(ex.Message);
-                    await Task.CompletedTask;
-                    break;
-                default:
-                    LogException(context.Exception);
-                    context.Result = new ObjectResult("An unexpected error was encountered")
-                    {
-                        StatusCode = StatusCodes.Status500InternalServerError
-                    };
-                    await Task.CompletedTask;
-                    break;
-            }
+                DuplicateProductException ex => await GetExceptionResult(ex, StatusCodes.Status409Conflict),
+                DuplicateProductOptionException ex => await GetExceptionResult(ex, StatusCodes.Status409Conflict),
+                ProductNotFoundException ex => await GetExceptionResult(ex, StatusCodes.Status404NotFound),
+                ProductOptionNotFoundException ex => await GetExceptionResult(ex, StatusCodes.Status404NotFound),
+                _ => await GetExceptionResult(context.Exception, StatusCodes.Status500InternalServerError)
+            };
         }
 
-        private void LogException(Exception exception)
+        private async Task<IActionResult> GetExceptionResult(Exception exception, int statusCode)
         {
             _logger.LogError(exception, exception.Message);
+
+            var result = await Task.FromResult(new ObjectResult(exception.Message)
+            {
+                StatusCode = statusCode
+            });
+
+            return result;
         }
     }
 }

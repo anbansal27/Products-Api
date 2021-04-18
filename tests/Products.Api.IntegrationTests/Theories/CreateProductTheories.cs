@@ -1,6 +1,7 @@
 ﻿using Products.Api.Application.Response;
 using Products.Api.Contracts;
 using Products.Api.IntegrationTests.Theories.Data;
+using System;
 using System.Net;
 using Xunit;
 
@@ -26,8 +27,7 @@ namespace Products.Api.IntegrationTests.Theories
                     Price = 100,
                     DeliveryPrice = 0
                 },
-                ExpectedStatusCode = HttpStatusCode.Conflict,
-                ExpectedResponse = null
+                ExpectedStatusCode = HttpStatusCode.Conflict
             };
 
             Add($"{nameof(DuplicateProductTheory)}", theoryData);
@@ -47,8 +47,6 @@ namespace Products.Api.IntegrationTests.Theories
                 },
                 ExpectedStatusCode = HttpStatusCode.Created
             };
-
-            theoryData.ExpectedResponse = new CreateProductResponse { ProductId = theoryData.Product.Id };
 
             Add($"{nameof(CreateProductTheory)}", theoryData);
         }

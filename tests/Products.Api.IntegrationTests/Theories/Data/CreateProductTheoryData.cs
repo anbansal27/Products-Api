@@ -1,5 +1,4 @@
-﻿using Products.Api.Application.Response;
-using Products.Api.Contracts;
+﻿using Products.Api.Contracts;
 using System.Net;
 
 namespace Products.Api.IntegrationTests.Theories.Data
@@ -9,7 +8,5 @@ namespace Products.Api.IntegrationTests.Theories.Data
         public ProductDto Product { get; set; }
 
         public HttpStatusCode ExpectedStatusCode { get; set; }        
-
-        public CreateProductResponse ExpectedResponse { get; set; }
     }
 }

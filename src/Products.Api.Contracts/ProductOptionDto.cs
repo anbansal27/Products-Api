@@ -3,19 +3,15 @@ using System.Text.Json.Serialization;
 
 namespace Products.Api.Contracts
 {
-    public class ProductDto
+    public class ProductOptionDto
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid? Id { get; set; }
-
-        public string Code { get; set; }
-
-        public decimal? DeliveryPrice { get; set; }
 
         public string Description { get; set; }
 
         public string Name { get; set; }
 
-        public decimal Price { get; set; }
+        public Guid ProductId { get; set; }
     }
 }

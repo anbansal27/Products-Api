@@ -22,9 +22,22 @@ namespace Products.Api.Data.Repository
             return result;
         }
 
+        public async Task<int> AddOptionAsync(ProductOption productOption)
+        {
+            await _productContext.ProductOptions.AddAsync(productOption);
+            var result = await SaveChangesAsync();
+            return result;
+        }
+
         public async Task DeleteAsync(Product product)
         {
             _productContext.Products.Remove(product);
+            await SaveChangesAsync();
+        }
+
+        public async Task DeleteOptionAsync(ProductOption productOption)
+        {
+            _productContext.ProductOptions.Remove(productOption);
             await SaveChangesAsync();
         }
 

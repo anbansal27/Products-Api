@@ -10,7 +10,11 @@ namespace Products.Api.Data.Repository
     {
         Task<int> AddAsync(Product product);
 
+        Task<int> AddOptionAsync(ProductOption productOption);
+
         Task DeleteAsync(Product product);
+
+        Task DeleteOptionAsync(ProductOption productOption);
 
         Task<Product> FirstOrDefaultAsync(Expression<Func<Product, bool>> predicate);
 

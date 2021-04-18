@@ -16,6 +16,6 @@ namespace Products.Api.Entities
         public Guid ProductId { get; set; }
 
         [ForeignKey("ProductId")]
-        public Product Product { get; private set; }
+        public Product Product { get; set; }
     }
 }
