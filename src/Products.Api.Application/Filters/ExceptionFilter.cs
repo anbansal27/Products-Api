@@ -20,8 +20,8 @@ namespace Products.Api.Application.Filters
             {
                 DuplicateProductException ex => await GetExceptionResult(ex, StatusCodes.Status409Conflict),
                 DuplicateProductOptionException ex => await GetExceptionResult(ex, StatusCodes.Status409Conflict),
-                ProductNotFoundException ex => await GetExceptionResult(ex, StatusCodes.Status404NotFound),
-                ProductOptionNotFoundException ex => await GetExceptionResult(ex, StatusCodes.Status404NotFound),
+                ProductNotFoundException ex => await GetExceptionResult(ex, StatusCodes.Status400BadRequest),
+                ProductOptionNotFoundException ex => await GetExceptionResult(ex, StatusCodes.Status400BadRequest),
                 _ => await GetExceptionResult(context.Exception, StatusCodes.Status500InternalServerError)
             };
         }

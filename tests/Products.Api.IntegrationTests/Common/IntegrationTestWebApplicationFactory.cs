@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Products.Api.Data;
-using Products.Api.Entities;
 using System;
 using System.Linq;
 
@@ -41,21 +40,22 @@ namespace Products.Api.IntegrationTests.Common
                     var scopedServices = scope.ServiceProvider;
 
                     var context = scopedServices.GetRequiredService<ProductDbContext>();
+
                     context.Database.EnsureCreated();
 
-                    var product = new Product()
-                    {
-                        Id = Guid.NewGuid(),
-                        Code = "code",
-                        Name = "name",
-                        Description = "description",
-                        Price = 100,
-                        DeliveryPrice = 10
-                    };
-
-                    context.Products.Add(product);
+                    context.Products.Add(SharedContext.ProductToGet());
+                    context.Products.Add(SharedContext.ProductToUpdate());
                     context.SaveChanges();
                 });
+        }
+
+        public ProductDbContext GetContext()
+        {
+            var scope = Services.CreateScope();
+            var scopedServices = scope.ServiceProvider;
+
+            var context = scopedServices.GetRequiredService<ProductDbContext>();
+            return context;
         }
     }
 }

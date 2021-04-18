@@ -34,7 +34,7 @@ namespace Products.Api.Controllers
         [HttpGet]
         [Produces(typeof(List<ProductDto>))]
         [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProducts([FromQuery] string name = null)
         {
@@ -46,18 +46,16 @@ namespace Products.Api.Controllers
         [Produces(typeof(ProductDto))]
         [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProductById([FromRoute] Guid id)
         {
-            var products = await _productService.GetProductById(id);
-            return Ok(products);
+            var product = await _productService.GetProductById(id);
+            return Ok(product);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] ProductDto product)
@@ -70,7 +68,6 @@ namespace Products.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteProduct([FromRoute] Guid id)
         {
@@ -103,7 +100,6 @@ namespace Products.Api.Controllers
         [Produces(typeof(ProductOptionDto))]
         [ProducesResponseType(typeof(ProductOptionDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProductOptionById([FromRoute] Guid productId, [FromRoute] Guid optionId)
         {
@@ -115,7 +111,6 @@ namespace Products.Api.Controllers
         [Produces(typeof(List<ProductOptionDto>))]
         [ProducesResponseType(typeof(List<ProductOptionDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetProductOptions([FromRoute] Guid productId)
         {
@@ -126,7 +121,6 @@ namespace Products.Api.Controllers
         [HttpPut("{productId}/options/{optionId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateProductOption([FromRoute] Guid productId, [FromRoute] Guid optionId, [FromBody] ProductOptionDto productOption)
@@ -144,7 +138,6 @@ namespace Products.Api.Controllers
         [HttpDelete("{productId}/options/{optionId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteProductOption([FromRoute] Guid productId, [FromRoute] Guid optionId)
         {
