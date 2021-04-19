@@ -1,13 +1,13 @@
-﻿using Products.Api.Application.Exceptions;
+﻿using AutoMapper;
+using Products.Api.Application.Contracts;
+using Products.Api.Application.Exceptions;
 using Products.Api.Application.Response;
 using Products.Api.Data.Repository;
-using System;
-using System.Threading.Tasks;
-using Products.Api.Contracts;
 using Products.Api.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Products.Api.Application.Services
 {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Products.Api.Contracts;
+using Products.Api.Application.Contracts;
 using Products.Api.Entities;
 
 namespace Products.Api.Application.MappingProfile

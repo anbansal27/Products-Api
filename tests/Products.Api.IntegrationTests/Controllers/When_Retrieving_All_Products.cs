@@ -1,4 +1,4 @@
-﻿using Products.Api.Contracts;
+﻿using Products.Api.Application.Contracts;
 using Products.Api.IntegrationTests.Common;
 using System.Collections.Generic;
 using System.Linq;

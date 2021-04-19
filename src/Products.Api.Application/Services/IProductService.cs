@@ -1,8 +1,8 @@
-﻿using Products.Api.Application.Response;
-using System.Threading.Tasks;
-using Products.Api.Contracts;
-using System.Collections.Generic;
+﻿using Products.Api.Application.Contracts;
+using Products.Api.Application.Response;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Products.Api.Application.Services
 {

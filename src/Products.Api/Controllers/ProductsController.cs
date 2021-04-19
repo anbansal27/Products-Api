@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Products.Api.Application.Contracts;
 using Products.Api.Application.Response;
 using Products.Api.Application.Services;
-using Products.Api.Contracts;
 
 namespace Products.Api.Controllers
 {

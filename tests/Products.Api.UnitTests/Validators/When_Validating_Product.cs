@@ -1,6 +1,6 @@
 ﻿using FluentValidation.TestHelper;
+using Products.Api.Application.Contracts;
 using Products.Api.Application.Validators;
-using Products.Api.Contracts;
 using Products.Api.UnitTests.Builders;
 using Xunit;
 

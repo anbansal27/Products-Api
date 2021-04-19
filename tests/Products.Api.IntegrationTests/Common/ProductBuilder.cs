@@ -1,4 +1,4 @@
-﻿using Products.Api.Contracts;
+﻿using Products.Api.Application.Contracts;
 using Products.Api.Entities;
 using System;
 
