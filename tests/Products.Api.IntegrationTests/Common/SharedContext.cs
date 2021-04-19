@@ -5,9 +5,13 @@ namespace Products.Api.IntegrationTests.Common
 {
     public static class SharedContext
     {
-        public static Guid ProductIdToGet = Guid.NewGuid();
+        public static Guid DefaultProductId = Guid.NewGuid();
 
         public static Guid ProductIdToUpdate = Guid.NewGuid();
+
+        public static Guid ProductOptionId = Guid.NewGuid();
+
+        public static Guid ProductOptionIdToUpdate = Guid.NewGuid();
 
         public static string Code = RandomBuilder.NextString();
 
@@ -19,10 +23,10 @@ namespace Products.Api.IntegrationTests.Common
 
         public static decimal Price = RandomBuilder.NextDecimal();
 
-        public static Product ProductToGet()
+        public static Product BuildDefaultProduct()
             => new Product
             {
-                Id = ProductIdToGet,
+                Id = DefaultProductId,
                 Code = Code,
                 Name = Name,
                 Description = Description,
@@ -30,15 +34,28 @@ namespace Products.Api.IntegrationTests.Common
                 DeliveryPrice = DeliveryPrice
             };
 
-        public static Product ProductToUpdate()
-            => new Product
+        public static Product BuildProductToUpdate()
+        {
+            var product = ProductBuilder.BuildProduct();
+            product.Id = ProductIdToUpdate;
+            return product;
+        }
+
+        public static ProductOption BuildDefaultProductOption()
+            => new ProductOption
             {
-                Id = ProductIdToUpdate,
-                Code = RandomBuilder.NextString(),
-                Name = RandomBuilder.NextString(),
-                Description = RandomBuilder.NextString(),
-                Price = RandomBuilder.NextDecimal(),
-                DeliveryPrice = RandomBuilder.NextDecimal()
+                Id = ProductOptionId,
+                Name = Name,
+                Description = Description,
+                ProductId = DefaultProductId
             };
+
+        public static ProductOption BuildProductOptionToUpdate()
+        {
+            var productOption = ProductOptionBuilder.BuildProductOption();
+            productOption.Id = ProductOptionIdToUpdate;
+            productOption.ProductId = DefaultProductId;
+            return productOption;
+        }
     }
 }

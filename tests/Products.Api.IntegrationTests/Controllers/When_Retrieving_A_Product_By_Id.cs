@@ -22,10 +22,10 @@ namespace Products.Api.IntegrationTests.Controllers
             var client = _factory.CreateClient();
 
             // Act
-            var actualResponse = await client.GetAsync($"/api/products/{Guid.NewGuid()}");
+            var responseMessage = await client.GetAsync($"/api/products/{Guid.NewGuid()}");
 
             // Assert
-            Assert.True(actualResponse?.StatusCode == HttpStatusCode.BadRequest);
+            Assert.True(responseMessage.StatusCode == HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Products.Api.IntegrationTests.Controllers
         {
             // Arrange
             var client = _factory.CreateClient();
-            var product = SharedContext.ProductToGet();
+            var product = SharedContext.BuildDefaultProduct();
             var expectedProduct = new ProductDto
             {
                 Id = product.Id,
@@ -45,11 +45,13 @@ namespace Products.Api.IntegrationTests.Controllers
             };
 
             // Act
-            var actualResponse = await client.GetAsync($"/api/products/{SharedContext.ProductIdToGet}");
-            ProductDto actualProduct = await GetResponseContent<ProductDto>(actualResponse);
+            var responseMessage = await client.GetAsync($"/api/products/{SharedContext.DefaultProductId}");
 
-            // Assert
-            Assert.True(actualResponse.IsSuccessStatusCode);
+            responseMessage.EnsureSuccessStatusCode();
+
+            ProductDto actualProduct = await GetResponseContent<ProductDto>(responseMessage);
+
+            // Assert            
             actualProduct.Should().BeEquivalentTo(expectedProduct);
         }
     }

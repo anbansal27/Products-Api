@@ -22,10 +22,10 @@ namespace Products.Api.IntegrationTests.Controllers
             var client = _factory.CreateClient();
 
             // Act
-            var actualResponse = await client.GetAsync($"/api/products?name={RandomBuilder.NextString()}");
+            var responseMessage = await client.GetAsync($"/api/products?name={RandomBuilder.NextString()}");
 
             // Assert
-            Assert.True(actualResponse?.StatusCode == HttpStatusCode.BadRequest);
+            Assert.True(responseMessage.StatusCode == HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace Products.Api.IntegrationTests.Controllers
         {
             // Arrange
             var client = _factory.CreateClient();
-            var product = SharedContext.ProductToGet();
+            var product = SharedContext.BuildDefaultProduct();
 
             var expectedProducts = new List<ProductDto>
             {
@@ -49,11 +49,11 @@ namespace Products.Api.IntegrationTests.Controllers
             };
 
             // Act
-            var actualResponse = await client.GetAsync($"/api/products?name={SharedContext.Name}");
-            List<ProductDto> actualProducts = await GetResponseContent<List<ProductDto>>(actualResponse);
+            var responseMessage = await client.GetAsync($"/api/products?name={SharedContext.Name}");
+            List<ProductDto> actualProducts = await GetResponseContent<List<ProductDto>>(responseMessage);
 
             // Assert
-            Assert.True(actualResponse.IsSuccessStatusCode);
+            Assert.True(responseMessage.IsSuccessStatusCode);
             actualProducts.Should().BeEquivalentTo(expectedProducts);
         }
     }

@@ -21,10 +21,10 @@ namespace Products.Api.IntegrationTests.Controllers
             var client = _factory.CreateClient();
 
             // Act
-            var actualResponse = await client.DeleteAsync($"/api/products/{Guid.NewGuid()}");
+            var responseMessage = await client.DeleteAsync($"/api/products/{Guid.NewGuid()}");
 
             // Assert
-            Assert.True(actualResponse?.StatusCode == HttpStatusCode.BadRequest);
+            Assert.True(responseMessage.StatusCode == HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -39,14 +39,14 @@ namespace Products.Api.IntegrationTests.Controllers
             context.SaveChanges();
             
             // Act
-            var actualResponse = await client.DeleteAsync($"/api/products/{product.Id}");
+            var responseMessage = await client.DeleteAsync($"/api/products/{product.Id}");
             
-            actualResponse.EnsureSuccessStatusCode();
+            responseMessage.EnsureSuccessStatusCode();
 
             var deletedProduct = context.Products.FirstOrDefault(x => x.Id == product.Id);
 
             // Assert
-            Assert.True(actualResponse.IsSuccessStatusCode);
+            Assert.True(responseMessage.IsSuccessStatusCode);
             Assert.Null(deletedProduct);
         }
     }

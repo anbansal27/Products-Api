@@ -43,8 +43,10 @@ namespace Products.Api.IntegrationTests.Common
 
                     context.Database.EnsureCreated();
 
-                    context.Products.Add(SharedContext.ProductToGet());
-                    context.Products.Add(SharedContext.ProductToUpdate());
+                    context.Products.Add(SharedContext.BuildDefaultProduct());
+                    context.Products.Add(SharedContext.BuildProductToUpdate());
+                    context.ProductOptions.Add(SharedContext.BuildDefaultProductOption());
+                    context.ProductOptions.Add(SharedContext.BuildProductOptionToUpdate());
                     context.SaveChanges();
                 });
         }

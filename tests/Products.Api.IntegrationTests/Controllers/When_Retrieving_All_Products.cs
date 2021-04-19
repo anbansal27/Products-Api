@@ -21,14 +21,15 @@ namespace Products.Api.IntegrationTests.Controllers
             var client = _factory.CreateClient();
 
             // Act
-            var actualResponse = await client.GetAsync($"/api/products");
+            var responseMessage = await client.GetAsync($"/api/products");
 
-            List<ProductDto> products = await GetResponseContent<List<ProductDto>>(actualResponse);
+            responseMessage.EnsureSuccessStatusCode();
 
-            // Assert
-            Assert.True(actualResponse.IsSuccessStatusCode);
+            List<ProductDto> products = await GetResponseContent<List<ProductDto>>(responseMessage);
+
+            // Assert            
             Assert.True(products.Count >= 2);
-            Assert.True(products.Count(x => x.Id == SharedContext.ProductIdToGet) == 1);
+            Assert.True(products.Count(x => x.Id == SharedContext.DefaultProductId) == 1);
             Assert.True(products.Count(x => x.Id == SharedContext.ProductIdToUpdate) == 1);
         }
     }

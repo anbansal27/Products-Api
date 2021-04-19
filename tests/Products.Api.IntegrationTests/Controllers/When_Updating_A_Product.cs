@@ -25,10 +25,10 @@ namespace Products.Api.IntegrationTests.Controllers
             var requestContent = GetRequestContent(product);
 
             // Act
-            var actualResponse = await client.PutAsync($"/api/products/{Guid.NewGuid()}", requestContent);
+            var responseMessage = await client.PutAsync($"/api/products/{Guid.NewGuid()}", requestContent);
 
             // Assert
-            Assert.True(actualResponse?.StatusCode == HttpStatusCode.BadRequest);
+            Assert.True(responseMessage.StatusCode == HttpStatusCode.BadRequest);
         }
 
         [Fact]
@@ -44,10 +44,10 @@ namespace Products.Api.IntegrationTests.Controllers
             var requestContent = GetRequestContent(product);
 
             // Act
-            var actualResponse = await client.PutAsync($"/api/products/{SharedContext.ProductIdToUpdate}", requestContent);
+            var responseMessage = await client.PutAsync($"/api/products/{SharedContext.ProductIdToUpdate}", requestContent);
 
             // Assert
-            Assert.True(actualResponse.StatusCode == HttpStatusCode.Conflict);
+            Assert.True(responseMessage.StatusCode == HttpStatusCode.Conflict);
         }
 
         [Fact]
@@ -68,13 +68,13 @@ namespace Products.Api.IntegrationTests.Controllers
             };
 
             // Act
-            var actualResponse = await client.PutAsync($"/api/products/{SharedContext.ProductIdToUpdate}", requestContent);
-            actualResponse.EnsureSuccessStatusCode();
+            var responseMessage = await client.PutAsync($"/api/products/{SharedContext.ProductIdToUpdate}", requestContent);
+            responseMessage.EnsureSuccessStatusCode();
             var context = _factory.GetContext();
             Product updatedProduct = context.Products.FirstOrDefault(x => x.Id == SharedContext.ProductIdToUpdate);
 
             // Assert
-            Assert.True(actualResponse.StatusCode == HttpStatusCode.OK);
+            Assert.True(responseMessage.StatusCode == HttpStatusCode.OK);
             updatedProduct.Should().BeEquivalentTo(expectedProduct, options => options.Excluding(x => x.ProductOptions));
         }
     }

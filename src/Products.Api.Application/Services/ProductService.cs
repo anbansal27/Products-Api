@@ -146,7 +146,7 @@ namespace Products.Api.Application.Services
 
             ProductOption existingOption = GetProductOption(product, productOption.Id.Value);
 
-            if (product.ProductOptions.Any(x => x.Name == productOption.Name))
+            if (product.ProductOptions.Any(x => x.Id != existingOption.Id && x.Name == productOption.Name))
             {
                 throw new DuplicateProductOptionException($"ProductOption cannot be updated as an Option with the same name already exists for Product - {productOption.ProductId}");
             }

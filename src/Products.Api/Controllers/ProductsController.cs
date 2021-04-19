@@ -89,7 +89,7 @@ namespace Products.Api.Controllers
         {
             if (productOption.ProductId != productId)
             {
-                return BadRequest("Product Id mis-match between request url and body");
+                return BadRequest("Product Id is not valid");
             }
 
             CreateProductOptionResponse response = await _productService.CreateProductOption(productOption);
@@ -127,7 +127,7 @@ namespace Products.Api.Controllers
         {
             if (productOption.ProductId != productId)
             {
-                return BadRequest("Product Id mis-match between request url and body");
+                return BadRequest("Product Id is not valid");
             }
 
             productOption.Id = optionId;
