@@ -3,9 +3,10 @@
 Products Api is a simple ASP.Net Core Web API built to support CRUD operations for Products and Product Options.
 
 The Api utilizes [Swagger for Api Specification](https://swagger.io/) and exposes following endpoints :
+
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/SwaggerApiSpecification.jpg)
 
-## Design
+## Design Considerations
 The API is designed with the following considerations :
 * Separation Of Concerns
 * Request Validations using [Fluent Validation Rules](https://fluentvalidation.net/).
@@ -26,8 +27,7 @@ The API is designed with the following considerations :
 * SqlLite database is used for Simplicity
 
 ## Deployment - AWS
-Application is deployed on AWS and can be accessed at - 
-http://products-2010248864.ap-southeast-2.elb.amazonaws.com/swagger/index.html
+Application has been deployed onto AWS and can be accessed at - http://products-2010248864.ap-southeast-2.elb.amazonaws.com/swagger/index.html
 
 ## Some uplifting that can be done going forward :
 * [Api Authentication and Authorization](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/secure-net-microservices-web-applications/)
@@ -44,7 +44,7 @@ http://products-2010248864.ap-southeast-2.elb.amazonaws.com/swagger/index.html
 	* Startup files 
 	* Extensions for setting up Swagger
 	* Products Controller to handle requests
-	* Log files - generated when the app executes
+	* Log files are generated in the `logs` folder when the app executes
 
 * Products.Api.Application - Core project containing the Business Logic for :
 	* Product Service to handle and process requests from the Products Controller 
@@ -76,13 +76,19 @@ http://products-2010248864.ap-southeast-2.elb.amazonaws.com/swagger/index.html
 * When the app starts (for the first time) the database is created using Entity framework migrations.   
 * The incoming request is first validated by the `ProductValidator` and `ProductOptionValidator` wherever applicable.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/Validation.jpg)
+
 * `ProductsController` then receives the request and forwards it to the `ProductService`.
+![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ProductsController.jpg)
+
 * The `ProductService` then performs validations based on business logic and throws appropriate exceptions (in case of validation failures) or processes the request.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ServiceBehavior.jpg)
+
 * In case of exceptions, the `ExceptionFilter` handles the exceptions, logs them and returns appropriate error results.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ExceptionHandling.jpg)
-* If there are no exceptions, the `ProductService` utilizes the CRUD operations exposed by `ProductRepository` to manage Products and Product Options.
-* Finally the formatted response is returned by the `ProductService` to the Controller which then returns it back to the user.
+
+* If there are no exceptions, the `ProductService` utilizes the CRUD operations exposed by `ProductRepository` to manage `Products` and `Product Options`.
+
+* Finally the formatted response mapped using `AutoMapper` is returned by the `ProductService` to the `ProductsController` which then returns it back.
 
 ## Steps to Build and Run
 
@@ -92,8 +98,8 @@ http://products-2010248864.ap-southeast-2.elb.amazonaws.com/swagger/index.html
 dotnet run
 ```
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ExecuteApp.jpg)
-* Alternatively run the `Products.Api` from Visual Studio 
-* Once up, the Api can be tested using Swagger
+* Alternatively run the `Products.Api` project from Visual Studio 
+* Once up, the Api can be tested using Swagger by browsing through the following URL :
 ```
 http://localhost:5000/swagger
 ```
@@ -117,11 +123,22 @@ docker run -d -p 5000:80 --name productsApi products
 ```
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/RunDockerContainer.jpg)
 
-Once up, the Api can be tested using Swagger
+ * Once up, the Api can be tested using Swagger by browsing through the following URL :
 
 ```
 http://localhost:5000/swagger
 ```
+
+* Execute the following commands to `Stop` the container and cleanup images.
+
+```
+docker stop productsApi
+
+docker rm -v productsApi
+
+docker rmi products
+```
+
 ## Running Tests and Generating Coverage Report
 * Install Report Generator tool by running `dotnet tool install -g dotnet-reportgenerator-globaltool`
 * Run the Unit or Integration Tests from their respective project directory - `\tests\Products.Api.IntegrationTests` using the following command
@@ -146,4 +163,4 @@ Generated Reports -
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/IntegrationTestsReport.jpg)
 
 * Unit Tests Coverage (Unit tests cover parts of code not covered by Integration tests)
-![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/UnitTestReport.png)
+![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/UnitTestsReport.png)
