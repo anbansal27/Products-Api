@@ -53,3 +53,7 @@ PublishProfiles/
 *.db
 *.db-shm
 *.db-wal
+
+#TestCoverage
+coveragereport/
+TestResults/
