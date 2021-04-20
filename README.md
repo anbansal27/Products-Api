@@ -31,7 +31,7 @@ Application has been deployed onto AWS and can be accessed at - http://products-
 
 ## Some uplifting that can be done going forward :
 * [Api Authentication and Authorization](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/secure-net-microservices-web-applications/)
-* Cloud Provisioning using IAC tools like [CloudFormation](https://aws.amazon.com/cloudformation/) or similar.
+* Deploying the API on Cloud using IAC tools like [CloudFormation](https://aws.amazon.com/cloudformation/) or similar.
 * CI/CD DevOps Pipeline using tools like [Jenkins](https://www.jenkins.io/) or similar.
 * Monitoring and Dashboards for Observability using tools like [CloudWatch](https://aws.amazon.com/cloudwatch/), [Grafana](https://grafana.com/) or similar.
 * Database Migration on Cloud.
