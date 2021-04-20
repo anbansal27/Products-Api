@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace Products.Api.Application.Contracts
+namespace Products.Api.Application.Dto
 {
     public class ProductDto
     {

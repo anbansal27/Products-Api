@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using Products.Api.Application.Contracts;
+using Products.Api.Application.Dto;
 using Products.Api.Application.Validators;
 using Products.Api.UnitTests.Builders;
 using System;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Products.Api.Application.Contracts;
+using Products.Api.Application.Dto;
 
 namespace Products.Api.Application.Validators
 {

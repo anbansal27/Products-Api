@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Products.Api.Application.Contracts;
+using Products.Api.Application.Dto;
 using Products.Api.Application.Exceptions;
 using Products.Api.Application.Response;
 using Products.Api.Data.Repository;

@@ -1,4 +1,4 @@
-﻿using Products.Api.Application.Contracts;
+﻿using Products.Api.Application.Dto;
 using Products.Api.Application.Response;
 using System;
 using System.Collections.Generic;
