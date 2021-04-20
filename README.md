@@ -170,4 +170,4 @@ Generated Reports -
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/IntegrationTestsReport.jpg)
 
 * Unit Tests Coverage (Unit tests cover parts of code not covered by Integration tests)
-![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/UnitTestsReport.png)
+![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/UnitTestsReport.jpg)
