@@ -1,6 +1,6 @@
 # Products API
 
-Products Api is a simple ASP.Net Core Web API built to support CRUD operations for Products and Product Options.
+Products Api is a Web API built on `ASP.Net Core 3.1` to support CRUD operations for Products and Product Options.
 
 The Api utilizes [Swagger for Api Specification](https://swagger.io/) and exposes following endpoints :
 
@@ -43,44 +43,46 @@ Application has been deployed onto AWS and can be accessed at - http://products-
 	* Api Configuration files
 	* Startup files 
 	* Extensions for setting up Swagger
-	* Products Controller to handle requests
+	* ProductsController to handle api requests 
 	* Log files are generated in the `logs` folder when the app executes
 
-* Products.Api.Application - Core project containing the Business Logic for :
-	* Product Service to handle and process requests from the Products Controller 
-	* Request Validations using Fluent Validation Rules
+* Products.Api.Application - Core project containing the Business Logic :
+	* `ProductService` to handle and process requests from the `ProductsController`
+	* Request Validations using Fluent Validation Rules - ProductValidator and ProductOptionValidator
 	* Custom Validation Exceptions thrown from the Product Service
 	* Validation and Exception Filters to handle the validation failures and thrown exceptions.
 	* AutoMapper Profiles to map database objects with the api requests/responses.
 	* Api Responses/DTOs
 
-* Products.Api.Entities - .Net Standard Library for Product and ProductOption Entity Models.
+* Products.Api.Entities - .Net Standard Library for `Product` and `ProductOption` Entity Models.
 
 * Products.Api.Data - Project for Database Context to allow accessing and updating the data. 	
 	* EF Migrations - To create the database
 	* Database Extensions - Used to migrate the database when the app starts.
-	* Repositories - To provide access to the data
+	* Repositories - To provide access to the data using the DbContext.
 
 * Products.Api.UnitTests - Tests project for Unit Tests and Behavior driven Tests
-	* This project test the Request Validators using Xunit Facts and Theories.
+	* This project test the Request Validations using Xunit Facts and Theories.
 	* Code coverage reports can be generated using Coverlet
 
 * Products.Api.IntegrationTests - 
 	* This project tests various behaviors for all controller actions. 
 	* The project uses a InMemory Database to perform end to end Integration Testing.
-	* Code coverage reports can be generated using Coverlet
+	* Code coverage reports can be generated using Coverlet.
 	
 * Dockerfile - Facilitate running the API on Docker containers
 
 ## Code Flow
 * When the app starts (for the first time) the database is created using Entity framework migrations.   
-* The incoming request is first validated by the `ProductValidator` and `ProductOptionValidator` wherever applicable.
+* The incoming request is first validated by the `ProductValidator` and `ProductOptionValidator` wherever applicable. 
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/Validation.jpg)
 
-* `ProductsController` then receives the request and forwards it to the `ProductService`.
+* The `ValidationFilter` handles any validation failures and returns error results.
+
+* `ProductsController` then handles the request and forwards it to the `ProductService`.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ProductsController.jpg)
 
-* The `ProductService` then performs validations based on business logic and throws appropriate exceptions (in case of validation failures) or processes the request.
+* The `ProductService` then performs validations based on business logic and throws appropriate exceptions (in case of validation failures), otherwise processes the request.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ServiceBehavior.jpg)
 
 * In case of exceptions, the `ExceptionFilter` handles the exceptions, logs them and returns appropriate error results.
@@ -92,7 +94,12 @@ Application has been deployed onto AWS and can be accessed at - http://products-
 
 ## Steps to Build and Run
 
-* Clone the repository from - [GitHub](https://github.com/anbansal27/Products-Api.git)
+### Prerequisites
+* Clone/Download the code from - [GitHub](https://github.com/anbansal27/Products-Api.git)
+* To open the solution a code editor has to be installed. Some of the widely used IDEs include - [Visual Studio 2019](https://visualstudio.microsoft.com/vs/), [VSCode](https://code.visualstudio.com/)
+* .Net Core 3.1 SDK would be required to run the application. Can be installed from [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1)
+
+### Run
 * Start the Api from `\src\Products.Api` using the below command : 
 ```
 dotnet run
