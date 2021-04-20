@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Products.Api.Data.Extensions
@@ -9,7 +10,11 @@ namespace Products.Api.Data.Extensions
         {
             using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
             using var context = serviceScope.ServiceProvider.GetService<ProductDbContext>();
-            context.Database.EnsureCreated();
+            
+            if (context.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+            {
+                context.Database.Migrate();
+            }            
         }
     }
 }

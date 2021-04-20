@@ -7,7 +7,7 @@ namespace Products.Api.Data
     {
         public ProductDbContext CreateDbContext(string[] args)
         {
-            var connectionString = "Data Source=Product.db;";
+            var connectionString = "Data Source=Products.db;";
 
             var optionsBuilder = new DbContextOptionsBuilder<ProductDbContext>();
             optionsBuilder.UseSqlite(connectionString);

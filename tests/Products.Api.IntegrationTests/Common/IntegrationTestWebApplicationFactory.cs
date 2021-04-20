@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Products.Api.Data;
-using System;
 using System.Linq;
 
 namespace Products.Api.IntegrationTests.Common
@@ -30,7 +29,7 @@ namespace Products.Api.IntegrationTests.Common
 
                     services.AddDbContext<ProductDbContext>(options =>
                     {
-                        options.UseInMemoryDatabase("Product");
+                        options.UseInMemoryDatabase("Products");
                         options.UseInternalServiceProvider(serviceProvider);
                     });
 
