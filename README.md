@@ -1,6 +1,6 @@
 # Products API
 
-Products Api is a Web API built on `ASP.Net Core 3.1` to support CRUD operations for Products and Product Options.
+Products Api is a simple Web API built on `ASP.Net Core 3.1` exposing endpoints to manage Products and Product Options.
 
 The Api utilizes [Swagger for Api Specification](https://swagger.io/) and exposes following endpoints :
 
@@ -14,45 +14,44 @@ The API is designed with the following considerations :
 * Structured Logging using [SeriLog](https://serilog.net/)
 * [Docker for Containerization](https://www.docker.com/)
 * Object mapping using [AutoMapper](https://automapper.org/)
+* Unit and Integration Testing using [Xunit](https://xunit.net/) and [Api based Integration Tests](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1)
+* Test Assertions using [Fluent Assertions](https://fluentassertions.com/)
+* Code Coverage reports using [Coverlet](https://dotnetfoundation.org/projects/coverlet)
+* Api design and documentation using [Swagger](https://swagger.io/)
 * Entity Framework Core - Code First
 	* For clean code 
 	* Greater control
 	* Faster development speeds 
 	* Database versioning
-* Indexes for Database Query Performance
-* Unit and Integration Testing using [Xunit](https://xunit.net/) and [Api based Integration Tests](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1)
-* Test Assertions using [Fluent Assertions](https://fluentassertions.com/)
-* Code Coverage reports using Coverlet(https://dotnetfoundation.org/projects/coverlet)
-* Api design and documentation using [Swagger](https://swagger.io/)
 * SqlLite database is used for Simplicity
+* Appropriate Indexes for Database Performance
 
 ## Deployment - AWS
-Application has been deployed onto AWS and can be accessed at - http://products-2010248864.ap-southeast-2.elb.amazonaws.com/swagger/index.html
+Application has been deployed onto AWS and can be accessed at - http://products-573164668.ap-southeast-2.elb.amazonaws.com/swagger/index.html
 
 ## Some uplifting that can be done going forward :
-* [Api Authentication and Authorization](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/secure-net-microservices-web-applications/)
-* Deploying the API on Cloud using IAC tools like [CloudFormation](https://aws.amazon.com/cloudformation/) or similar.
+* Implementing [Api Authentication and Authorization](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/secure-net-microservices-web-applications/) to secure the API.
+* Deploying the API and Database onto Cloud using IAC tools like [CloudFormation](https://aws.amazon.com/cloudformation/) or similar.
 * CI/CD DevOps Pipeline using tools like [Jenkins](https://www.jenkins.io/) or similar.
 * Monitoring and Dashboards for Observability using tools like [CloudWatch](https://aws.amazon.com/cloudwatch/), [Grafana](https://grafana.com/) or similar.
-* Database Migration on Cloud.
 
 ## Solution Structure 
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/SolutionStructure.jpg)
 
 * Products.Api - This is the host project and contains the following :
-	* Api Configuration files
-	* Startup files 
-	* Extensions for setting up Swagger
-	* ProductsController to handle api requests 
+	* Api Configuration
+	* Program and Startup files to setup the host, services container and http request pipeline.
+	* Request Validations using Fluent Validation Rules - `ProductValidator` and `ProductOptionValidator`.
+	* Validation and Exception Filters to handle the validation failures and thrown exceptions respectively.
+	* Extensions for setting up `Swagger`
+	* `ProductsController` to handle api requests 
 	* Log files are generated in the `logs` folder when the app executes
 
 * Products.Api.Application - Core project containing the Business Logic :
 	* `ProductService` to handle and process requests from the `ProductsController`
-	* Request Validations using Fluent Validation Rules - ProductValidator and ProductOptionValidator
 	* Custom Validation Exceptions thrown from the Product Service
-	* Validation and Exception Filters to handle the validation failures and thrown exceptions.
 	* AutoMapper Profiles to map database objects with the api requests/responses.
-	* Api Responses/DTOs
+	* Responses/DTOs
 
 * Products.Api.Entities - .Net Standard Library for `Product` and `ProductOption` Entity Models.
 
@@ -70,16 +69,14 @@ Application has been deployed onto AWS and can be accessed at - http://products-
 	* The project uses a InMemory Database to perform end to end Integration Testing.
 	* Code coverage reports can be generated using Coverlet.
 	
-* Dockerfile - Facilitate running the API on Docker containers
+* Dockerfile - To facilitate running the API on Docker containers
 
 ## Code Flow
-* When the app starts (for the first time) the database is created using Entity framework migrations.   
-* The incoming request is first validated by the `ProductValidator` and `ProductOptionValidator` wherever applicable. 
+* When the app starts (for the first time) the database is migrated using Entity framework migrations.   
+* The incoming request is first validated by the `ProductValidator` and `ProductOptionValidator` wherever applicable. Error results are returned on any validation failures.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/Validation.jpg)
 
-* The `ValidationFilter` handles any validation failures and returns error results.
-
-* `ProductsController` then handles the request and forwards it to the `ProductService`.
+* `ProductsController` handles the request and forwards it to the `ProductService`.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ProductsController.jpg)
 
 * The `ProductService` then performs validations based on business logic and throws appropriate exceptions (in case of validation failures), otherwise processes the request.
@@ -88,9 +85,9 @@ Application has been deployed onto AWS and can be accessed at - http://products-
 * In case of exceptions, the `ExceptionFilter` handles the exceptions, logs them and returns appropriate error results.
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ExceptionHandling.jpg)
 
-* If there are no exceptions, the `ProductService` utilizes the CRUD operations exposed by `ProductRepository` to manage `Products` and `Product Options`.
+* If there are no exceptions, the `ProductService` utilizes the operations exposed by `ProductRepository` to manage `Products` and `Product Options`.
 
-* Finally the formatted response mapped using `AutoMapper` is returned by the `ProductService` to the `ProductsController` which then returns it back.
+* Finally the formatted response mapped using `AutoMapper` (if applicable) is returned by the `ProductService` to the `ProductsController` which then sends it to the caller.
 
 ## Steps to Build and Run
 

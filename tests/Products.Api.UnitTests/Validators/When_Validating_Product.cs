@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using Products.Api.Application.Dto;
-using Products.Api.Application.Validators;
 using Products.Api.UnitTests.Builders;
+using Products.Api.Validators;
 using Xunit;
 
 namespace Products.Api.UnitTests.Validators

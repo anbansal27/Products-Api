@@ -8,12 +8,12 @@ using Microsoft.Extensions.Hosting;
 using Products.Api.Configuration;
 using Products.Api.Extensions;
 using Products.Api.Application.Services;
-using Products.Api.Application.Validators;
 using Products.Api.Data.Extensions;
 using Products.Api.Data.Repository;
-using Products.Api.Application.Filters;
 using System;
 using System.Reflection;
+using Products.Api.Filters;
+using Products.Api.Validators;
 
 namespace Products.Api
 {

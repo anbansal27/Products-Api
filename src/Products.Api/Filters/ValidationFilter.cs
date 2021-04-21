@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Products.Api.Application.Filters
+namespace Products.Api.Filters
 {
     public class ValidationFilter : ActionFilterAttribute
     {

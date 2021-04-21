@@ -1,4 +1,4 @@
-﻿namespace Products.Api.Application.Validators
+﻿namespace Products.Api.Validators
 {
     public class ValidationErrors
     {

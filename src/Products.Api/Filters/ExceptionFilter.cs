@@ -6,7 +6,7 @@ using Products.Api.Application.Exceptions;
 using System;
 using System.Threading.Tasks;
 
-namespace Products.Api.Application.Filters
+namespace Products.Api.Filters
 {
     public class ExceptionFilter : IAsyncExceptionFilter
     {
@@ -30,7 +30,7 @@ namespace Products.Api.Application.Filters
         {
             _logger.LogError(exception, exception.Message);
 
-            var result = await Task.FromResult(new ObjectResult(exception.Message)
+            var result = await Task.FromResult(new ObjectResult(new ApiError { Error = exception.Message, StatusCode = statusCode })
             {
                 StatusCode = statusCode
             });
