@@ -74,15 +74,19 @@ Application has been deployed onto AWS and can be accessed at - http://products-
 ## Code Flow
 * When the app starts (for the first time) the database is migrated using Entity framework migrations.   
 * The incoming request is first validated by the `ProductValidator` and `ProductOptionValidator` wherever applicable. Error results are returned on any validation failures.
+
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/Validation.jpg)
 
 * `ProductsController` handles the request and forwards it to the `ProductService`.
+
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ProductsController.jpg)
 
 * The `ProductService` then performs validations based on business logic and throws appropriate exceptions (in case of validation failures), otherwise processes the request.
+
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ServiceBehavior.jpg)
 
 * In case of exceptions, the `ExceptionFilter` handles the exceptions, logs them and returns appropriate error results.
+
 ![alt text](https://github.com/anbansal27/Products-Api/blob/master/images/ExceptionHandling.jpg)
 
 * If there are no exceptions, the `ProductService` utilizes the operations exposed by `ProductRepository` to manage `Products` and `Product Options`.
